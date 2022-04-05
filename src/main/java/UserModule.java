@@ -3,53 +3,75 @@ import java.util.Scanner;
 
 public class UserModule {
 
-    private static final Scanner scanner=new Scanner(System.in);
-    private static final AVLTree avlTree=new AVLTree();
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final AVLTree avlTree = new AVLTree();
+    private static final BSTTree bstTree = new BSTTree();
 
-    public void start(){
+    public void start() {
         userAVLTree();
     }
 
-    private void userBSTTree(){
+    private void userAVLTree() {
+        createTree();
 
-    }
-
-    private void userAVLTree(){
-        createAVLTree();
+        bstTree.printTree();
         avlTree.printTree();
-        boolean status =true;
-        while (status){
-            int value=menu();
-            if (value==1){
+        boolean status = true;
+        while (status) {
+            int value = menu();
+            if (value == 1) {
+
+                bstTree.minimumValue();
+                bstTree.maximumValue();
                 avlTree.minimumValue();
                 avlTree.maximumValue();
-            }else if (value==2){
+            } else if (value == 2) {
+
                 System.out.println("How many nodes do you want to remove?");
-                int n=scanner.nextInt();
-                for (int i=0;i<n;i++){
+                int n = scanner.nextInt();
+                for (int i = 0; i < n; i++) {
                     System.out.println("Give node value: ");
-                    avlTree.delete(scanner.nextInt());
+                    int a=scanner.nextInt();
+                    bstTree.delete(a);
+                    avlTree.delete(a);
                 }
-            }else if (value==3){
+            } else if (value == 3) {
+
+                bstTree.inOrder();
                 avlTree.inOrder();
-            }else if (value==4){
+            } else if (value == 4) {
+
+                bstTree.preOrder();
                 avlTree.preOrder();
-            }else if (value==5){
+            } else if (value == 5) {
+
+                bstTree.deleteAll();
+                System.out.println();
                 avlTree.deleteAll();
-            }else if (value==6){
+                System.out.println();
+                System.out.println("select new tree");
+                createTree();
+            } else if (value == 6) {
+
                 System.out.println("Give node value: ");
-                avlTree.preOrder(avlTree.find(scanner.nextInt()));
-            }else if (value==7){
+                int a=scanner.nextInt();
+                bstTree.preOrder(bstTree.find(a));
+                System.out.println();
+                avlTree.preOrder(avlTree.find(a));
+                System.out.println();
+            } else if (value == 7) {
+
+                bstTree.rebalance();
                 avlTree.rebalance();
-            }else if (value==8){
-                status=false;
-            }else {
+            } else if (value == 8) {
+                status = false;
+            } else {
                 System.out.println("you give wrong sign, please try again.");
             }
         }
     }
 
-    private int menu(){
+    private int menu() {
 
         System.out.println("Menu: ");
         System.out.println("1 - Highest and lowest value of element:");
@@ -64,19 +86,19 @@ public class UserModule {
         return scanner.nextInt();
     }
 
-    private void createAVLTree(){
+    private void createTree() {
         int n = 0;
         boolean bnError = true;
         try {
             do {
                 System.out.println("Give array length from 1 to 10");
                 n = scanner.nextInt();
-            }while (n>10 || n<0);
-            int[] a=new int[n];
+            } while (n > 10 || n < 0);
+            int[] a = new int[n];
         } catch (InputMismatchException e) {
             System.out.println("You gave a number in a wrong format");
             bnError = false;
-        } catch (NegativeArraySizeException en){
+        } catch (NegativeArraySizeException en) {
             System.out.println("You gave a negative number");
             bnError = false;
         }
@@ -94,7 +116,14 @@ public class UserModule {
                 }
                 i++;
             }
+            long start1=System.nanoTime();
             avlTree.createAVLTree(array);
+            long stop1=System.nanoTime();
+            System.out.println("AVL: "+(stop1-start1));
+            long start2=System.nanoTime();
+            bstTree.createBSTTree(array);
+            long stop2=System.nanoTime();
+            System.out.println("BST: "+(stop2-start2));
         }
 
     }
