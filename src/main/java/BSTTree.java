@@ -80,8 +80,8 @@ public class BSTTree extends Tree{
     }
 
     void rebalance() {
-        preOrder();
+
         root=convertToBalancedBST(root);
-        preOrder();
+
     }
 }

@@ -68,7 +68,9 @@ public class GeneratorModule {
         long sum = 0;
         long inorderSum=0;
         long sumMin=0;
+        long sumRebalance=0;
         List<Long> timeList = new ArrayList<>();
+        List<Long> timeListRebalance = new ArrayList<>();
         List<Long> timeListMin = new ArrayList<>();
         List<Long> timeListInOrder = new ArrayList<>();
         BSTTree bstTree = new BSTTree();
@@ -95,13 +97,21 @@ public class GeneratorModule {
             stop = System.nanoTime();
             inorderSum = inorderSum + (stop - start);
             timeListInOrder.add(stop - start);
+
+            start = System.nanoTime();
+            bstTree.rebalance();
+            stop = System.nanoTime();
+            sumRebalance = sumRebalance + (stop - start);
+            timeListRebalance.add(stop - start);
         }
         System.out.println("create: elements: " + generatedArrays.get(0).length + ", time: " + (sum / 10) + ", standard deviation: " +
                 standardDeviation(timeList, sum / 10));
         System.out.println("inOrder: elements: " + generatedArrays.get(0).length + ", time: " + (inorderSum / 10) + ", standard deviation: " +
-                standardDeviation(timeListInOrder, sum / 10));
+                standardDeviation(timeListInOrder, inorderSum / 10));
         System.out.println("Minimum: elements: " + generatedArrays.get(0).length + ", time: " + (sumMin / 10) + ", standard deviation: " +
-                standardDeviation(timeListMin, sum / 10));
+                standardDeviation(timeListMin, sumMin / 10));
+        System.out.println("Rebalance: elements: " + generatedArrays.get(0).length + ", time: " + (sumRebalance / 10) + ", standard deviation: " +
+                standardDeviation(timeListRebalance, sumRebalance / 10));
     }
 
 
