@@ -18,16 +18,16 @@ public class Tree {
 
     public Node mostLeftChild(Node node) {
         Node current = node;
-        System.out.print("path: "+current.key + " ");
+//        System.out.print("path: "+current.key + " ");
         while (current.left != null) {
             current = current.left;
-            System.out.print(current.key + " ");
+//            System.out.print(current.key + " ");
         }
-        System.out.println();
+//        System.out.println();
         return current;
     }
     void minimumValue(){
-        System.out.println("min: "+mostLeftChild(root).key);
+
     }
     public Node mostRightChild(Node node) {
         Node current = node;
@@ -69,7 +69,6 @@ public class Tree {
         if (head != null)
         {
             inOrder(head.left);
-            System.out.print(head.key+" ");
             inOrder(head.right);
         }
     }
@@ -77,7 +76,6 @@ public class Tree {
     public void inOrder()
     {
         inOrder(root);
-        System.out.println();
     }
 
     public void deleteAll(Node head)
